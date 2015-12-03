@@ -1,11 +1,17 @@
 var secrets = require('../config/secrets');
-var sendgrid  = require('sendgrid')(secrets.sendgrid.user, secrets.sendgrid.password);
+var nodemailer = require("nodemailer");
+var transporter = nodemailer.createTransport({
+  service: 'SendGrid',
+  auth: {
+    user: secrets.sendgrid.user,
+    pass: secrets.sendgrid.password
+  }
+});
 
 /**
  * GET /contact
  * Contact form page.
  */
-
 exports.getContact = function(req, res) {
   res.render('contact', {
     title: 'Contact'
@@ -14,15 +20,10 @@ exports.getContact = function(req, res) {
 
 /**
  * POST /contact
- * Send a contact form via SendGrid.
- * @param {string} email
- * @param {string} name
- * @param {string} message
+ * Send a contact form via Nodemailer.
  */
-
 exports.postContact = function(req, res) {
   req.assert('name', 'Name cannot be blank').notEmpty();
-  req.assert('email', 'Email cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('message', 'Message cannot be blank').notEmpty();
 
@@ -36,17 +37,17 @@ exports.postContact = function(req, res) {
   var from = req.body.email;
   var name = req.body.name;
   var body = req.body.message;
-  var to = 'you@email.com';
-  var subject = 'API Example | Contact Form';
+  var to = 'your@email.com';
+  var subject = 'Contact Form | Hackathon Starter';
 
-  var email = new sendgrid.Email({
+  var mailOptions = {
     to: to,
     from: from,
     subject: subject,
-    text: body + '\n\n' + name
-  });
+    text: body
+  };
 
-  sendgrid.send(email, function(err) {
+  transporter.sendMail(mailOptions, function(err) {
     if (err) {
       req.flash('errors', { msg: err.message });
       return res.redirect('/contact');
