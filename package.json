@@ -1,14 +1,6 @@
 {
   "name": "hackathon-starter",
-  "version": "3.2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
-  },
-  "scripts": {
-    "start": "node app.js",
-    "test": "mocha --reporter spec --timeout 5000"
-  },
+  "version": "0.0.0",
   "dependencies": {
     "async": "~0.2.10",
     "bcrypt-nodejs": "~0.0.3",

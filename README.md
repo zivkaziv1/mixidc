@@ -3,7 +3,7 @@ Hackathon Starter Angular [![Dependency Status](https://david-dm.org/squeezeday/
 =================
 A boilerplate for **Node.js** web applications - with Angular JS.
 
-this is my try...
+No live demo yet..
 
 I really like the work by Sahat Yalkabov with https://github.com/sahat/hackathon-starter
 Even though I know there are several node-express-angular-mongodb boilerplates out there, here's my contribution. I wanted to be able to mix Angular and static pages in a single site. Also, I prefer to split Angular actions into separate modules.
